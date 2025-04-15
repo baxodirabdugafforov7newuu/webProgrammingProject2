@@ -1,55 +1,56 @@
 package com.example.demo.domain;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import jakarta.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
-
-import java.util.UUID;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import org.hibernate.annotations.UuidGenerator;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_DEFAULT;
 
 @Entity
-@Table(name = "contacts")
 @JsonInclude(NON_DEFAULT)
+@Table(name = "contacts")
 public class Contact {
 
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @UuidGenerator
     @Column(name = "id", unique = true, updatable = false)
-    private UUID id;
+    private String id;
 
+    @NotNull(message = "Name cannot be null")
+    @Size(min = 1, max = 100, message = "Name must be between 1 and 100 characters")
     private String name;
+
+    @NotNull(message = "Email cannot be null")
+    @Email(message = "Email should be valid")
+    @Size(max = 200, message = "Email should not exceed 200 characters")
     private String email;
+
+    @Size(max = 100, message = "Title should not exceed 100 characters")
     private String title;
+
+    @Size(max = 20, message = "Phone number should not exceed 20 characters")
     private String phone;
+
+    @Size(max = 255, message = "Address should not exceed 255 characters")
     private String address;
+
+    @Size(max = 20, message = "Status should not exceed 20 characters")
     private String status;
 
-    @Column(name = "photo_url")
+    @Size(max = 255, message = "Photo URL should not exceed 255 characters")
     private String photoUrl;
 
-    // Default constructor
-    public Contact() {}
-
-    // All-args constructor
-    public Contact(UUID id, String name, String email, String title, String phone, String address, String status, String photoUrl) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.title = title;
-        this.phone = phone;
-        this.address = address;
-        this.status = status;
-        this.photoUrl = photoUrl;
-    }
-
-    // Getters and Setters
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -108,6 +109,4 @@ public class Contact {
     public void setPhotoUrl(String photoUrl) {
         this.photoUrl = photoUrl;
     }
-
-    // Optional: Override toString, equals, hashCode, etc. if needed
 }

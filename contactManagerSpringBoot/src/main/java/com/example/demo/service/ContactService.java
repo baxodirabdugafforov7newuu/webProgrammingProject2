@@ -2,71 +2,100 @@ package com.example.demo.service;
 
 import com.example.demo.domain.Contact;
 import com.example.demo.repo.ContactRepo;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.function.BiFunction;
+import java.util.function.Function;
+
+import static com.example.demo.constant.Constant.PHOTO_DIRECTORY;
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 @Service
+@Transactional(rollbackOn = Exception.class)
 public class ContactService {
 
-    @Autowired
     private ContactRepo contactRepo;
 
-    private static final String PHOTO_DIRECTORY = "/path/to/photo/directory";
+    // Constructor for dependency injection
+    public ContactService(ContactRepo contactRepo) {
+        this.contactRepo = contactRepo;
+    }
+
+    // Get all contacts with pagination
+    public Page<Contact> getAllContacts(int page, int size) {
+        return contactRepo.findAll(PageRequest.of(page, size, Sort.by("name")));
+    }
+
+    // Get a contact by UUID
+    public Contact getContact(UUID id) {
+        return contactRepo.findById(id).orElseThrow(() -> new RuntimeException("Contact not found"));
+    }
 
     // Create a new contact
     public Contact createContact(Contact contact) {
         return contactRepo.save(contact);
     }
 
-    // Get contact by ID
-    public Contact getContact(UUID id) {
-        Optional<Contact> contact = contactRepo.findById(id);
-        if (contact.isPresent()) {
-            return contact.get();
-        }
-        throw new RuntimeException("Contact not found");
-    }
-
-    // Delete contact
-    public void deleteContact(UUID id) {
-        Contact contact = getContact(id);
+    // Delete a contact
+    public void deleteContact(Contact contact) {
         contactRepo.delete(contact);
     }
 
-    // Upload photo for the contact
+    // Upload photo for a contact
     public String uploadPhoto(UUID id, MultipartFile file) {
-        try {
-            Contact contact = getContact(id);
-            String photoUrl = saveFile(file);
-            contact.setPhotoUrl(photoUrl);
-            contactRepo.save(contact);
-            return photoUrl;
-        } catch (IOException e) {
-            throw new RuntimeException("Could not upload file", e);
-        }
+        logInfo("Saving picture for user ID: {}", id);
+        Contact contact = getContact(id);
+        String photoUrl = photoFunction.apply(id.toString(), file);  // Convert UUID to String for filename
+        contact.setPhotoUrl(photoUrl);
+        contactRepo.save(contact);
+        return photoUrl;
     }
 
-    // Helper method to save the photo
-    private String saveFile(MultipartFile file) throws IOException {
-        String filename = UUID.randomUUID() + ".jpg";  // Generate a unique filename
-        Path targetLocation = Paths.get(PHOTO_DIRECTORY).resolve(filename);
+    // Helper function to get file extension
+    private final Function<String, String> fileExtension = filename -> Optional.of(filename).filter(name -> name.contains("."))
+            .map(name -> "." + name.substring(filename.lastIndexOf(".") + 1)).orElse(".png");
 
-        // Save the file
-        Files.copy(file.getInputStream(), targetLocation);
+    // Function to handle the photo saving
+    private final BiFunction<String, MultipartFile, String> photoFunction = (id, image) -> {
+        String filename = id + fileExtension.apply(image.getOriginalFilename());
+        try {
+            Path fileStorageLocation = Paths.get(PHOTO_DIRECTORY).toAbsolutePath().normalize();
+            if (!Files.exists(fileStorageLocation)) {
+                Files.createDirectories(fileStorageLocation);
+            }
+            Files.copy(image.getInputStream(), fileStorageLocation.resolve(filename), REPLACE_EXISTING);
+            return ServletUriComponentsBuilder
+                    .fromCurrentContextPath()
+                    .path("/contacts/image/" + filename)
+                    .toUriString();
+        } catch (Exception exception) {
+            throw new RuntimeException("Unable to save image", exception);
+        }
+    };
 
-        // Build and return the file URL
-        return ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/contacts/images/")
-                .path(filename)
-                .toUriString();
+    // Custom logging function (replace with actual logging framework if needed)
+    private void logInfo(String message, Object... args) {
+        System.out.printf(message + "%n", args);  // Simple console log for demonstration
+    }
+
+    // Getter for contactRepo
+    public ContactRepo getContactRepo() {
+        return contactRepo;
+    }
+
+    // Setter for contactRepo
+    public void setContactRepo(ContactRepo contactRepo) {
+        this.contactRepo = contactRepo;
     }
 }
