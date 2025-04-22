@@ -17,42 +17,21 @@ public class CorsConfig {
 
     @Bean
     public CorsFilter corsFilter() {
-        var urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
-        var corsConfiguration = new CorsConfiguration();
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
 
-        // Enable credentials (cookies, authorization headers, etc.)
-        corsConfiguration.setAllowCredentials(true);
-
-        // Define allowed origins for development and production environments
-        corsConfiguration.setAllowedOrigins(List.of("http://localhost:3000", "http://localhost:4200"));
-
-        // Set allowed headers for preflight requests and actual requests
+        corsConfiguration.setAllowCredentials(true); // Allow cookies/auth headers
+        corsConfiguration.setAllowedOrigins(List.of("http://localhost:3000")); // React frontend
         corsConfiguration.setAllowedHeaders(List.of(
                 ORIGIN,
-                ACCESS_CONTROL_ALLOW_ORIGIN,
                 CONTENT_TYPE,
                 ACCEPT,
                 AUTHORIZATION,
-                X_REQUESTED_WITH,
-                ACCESS_CONTROL_REQUEST_METHOD,
-                ACCESS_CONTROL_REQUEST_HEADERS,
-                ACCESS_CONTROL_ALLOW_CREDENTIALS
+                X_REQUESTED_WITH
         ));
-
-        // Expose headers to allow frontend to access certain headers
         corsConfiguration.setExposedHeaders(List.of(
-                ORIGIN,
-                ACCESS_CONTROL_ALLOW_ORIGIN,
-                CONTENT_TYPE,
-                ACCEPT,
                 AUTHORIZATION,
-                X_REQUESTED_WITH,
-                ACCESS_CONTROL_REQUEST_METHOD,
-                ACCESS_CONTROL_REQUEST_HEADERS,
-                ACCESS_CONTROL_ALLOW_CREDENTIALS
+                CONTENT_TYPE
         ));
-
-        // Allow specific HTTP methods
         corsConfiguration.setAllowedMethods(List.of(
                 GET.name(),
                 POST.name(),
@@ -62,9 +41,9 @@ public class CorsConfig {
                 OPTIONS.name()
         ));
 
-        // Register CORS configuration to all endpoints
-        urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", corsConfiguration);
 
-        return new CorsFilter(urlBasedCorsConfigurationSource);
+        return new CorsFilter(source);
     }
 }
