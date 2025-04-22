@@ -1,0 +1,104 @@
+2025-04-22T14:13:54.908+05:00  INFO 9840 --- [my-app] [main] com.example.demo.DemoApplication         : Starting DemoApplication using Java 24 with PID 9840 (C:\Users\baxodir77\Desktop\webProgrammingProject2\contactManagerSpringBoot\target\classes started by baxodir77 in C:\Users\baxodir77\Desktop\webProgrammingProject2\contactManagerSpringBoot)
+2025-04-22T14:13:54.910+05:00  INFO 9840 --- [my-app] [main] com.example.demo.DemoApplication         : The following 1 profile is active: "dev"
+2025-04-22T14:13:55.855+05:00  INFO 9840 --- [my-app] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-04-22T14:13:55.977+05:00  INFO 9840 --- [my-app] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 102 ms. Found 1 JPA repository interface.
+2025-04-22T14:13:56.937+05:00  INFO 9840 --- [my-app] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2025-04-22T14:13:56.960+05:00  INFO 9840 --- [my-app] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-04-22T14:13:56.960+05:00  INFO 9840 --- [my-app] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-04-22T14:13:57.097+05:00  INFO 9840 --- [my-app] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-04-22T14:13:57.098+05:00  INFO 9840 --- [my-app] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2096 ms
+2025-04-22T14:13:57.441+05:00  INFO 9840 --- [my-app] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-04-22T14:13:57.543+05:00  INFO 9840 --- [my-app] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.11.Final
+2025-04-22T14:13:57.584+05:00  INFO 9840 --- [my-app] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-04-22T14:13:58.185+05:00  INFO 9840 --- [my-app] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-04-22T14:13:58.261+05:00  INFO 9840 --- [my-app] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-04-22T14:13:58.518+05:00  INFO 9840 --- [my-app] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:devdb user=USER
+2025-04-22T14:13:58.520+05:00  INFO 9840 --- [my-app] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-04-22T14:13:58.546+05:00  WARN 9840 --- [my-app] [main] org.hibernate.dialect.Dialect            : HHH000511: The 2.3.232 version for [org.hibernate.dialect.PostgreSQLDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 12.0.0. Check the community dialects project for available legacy versions.
+2025-04-22T14:13:58.560+05:00  WARN 9840 --- [my-app] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-04-22T14:13:58.593+05:00  INFO 9840 --- [my-app] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-04-22T14:13:59.937+05:00  INFO 9840 --- [my-app] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-04-22T14:14:00.067+05:00  INFO 9840 --- [my-app] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-04-22T14:14:00.517+05:00  WARN 9840 --- [my-app] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-04-22T14:14:00.632+05:00  INFO 9840 --- [my-app] [main] o.s.v.b.OptionalValidatorFactoryBean     : Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-04-22T14:14:01.080+05:00  INFO 9840 --- [my-app] [main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:devdb'
+2025-04-22T14:14:01.162+05:00  WARN 9840 --- [my-app] [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2025-04-22T14:14:01.163+05:00  INFO 9840 --- [my-app] [main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-04-22T14:14:01.165+05:00  INFO 9840 --- [my-app] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-04-22T14:14:01.169+05:00  INFO 9840 --- [my-app] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-04-22T14:14:01.188+05:00  INFO 9840 --- [my-app] [main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-04-22T14:14:01.217+05:00 ERROR 9840 --- [my-app] [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8081 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8081 or configure this application to listen on another port.
+
+2025-04-22T14:14:44.589+05:00  INFO 17160 --- [my-app] [main] com.example.demo.DemoApplication         : Starting DemoApplication using Java 24 with PID 17160 (C:\Users\baxodir77\Desktop\webProgrammingProject2\contactManagerSpringBoot\target\classes started by baxodir77 in C:\Users\baxodir77\Desktop\webProgrammingProject2\contactManagerSpringBoot)
+2025-04-22T14:14:44.593+05:00  INFO 17160 --- [my-app] [main] com.example.demo.DemoApplication         : The following 1 profile is active: "dev"
+2025-04-22T14:14:45.726+05:00  INFO 17160 --- [my-app] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-04-22T14:14:45.855+05:00  INFO 17160 --- [my-app] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 115 ms. Found 1 JPA repository interface.
+2025-04-22T14:14:47.040+05:00  INFO 17160 --- [my-app] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2025-04-22T14:14:47.085+05:00  INFO 17160 --- [my-app] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-04-22T14:14:47.086+05:00  INFO 17160 --- [my-app] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-04-22T14:14:47.228+05:00  INFO 17160 --- [my-app] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-04-22T14:14:47.228+05:00  INFO 17160 --- [my-app] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2547 ms
+2025-04-22T14:14:47.619+05:00  INFO 17160 --- [my-app] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-04-22T14:14:47.713+05:00  INFO 17160 --- [my-app] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.11.Final
+2025-04-22T14:14:47.754+05:00  INFO 17160 --- [my-app] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-04-22T14:14:48.297+05:00  INFO 17160 --- [my-app] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-04-22T14:14:48.380+05:00  INFO 17160 --- [my-app] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-04-22T14:14:48.648+05:00  INFO 17160 --- [my-app] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:devdb user=USER
+2025-04-22T14:14:48.650+05:00  INFO 17160 --- [my-app] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-04-22T14:14:48.676+05:00  WARN 17160 --- [my-app] [main] org.hibernate.dialect.Dialect            : HHH000511: The 2.3.232 version for [org.hibernate.dialect.PostgreSQLDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 12.0.0. Check the community dialects project for available legacy versions.
+2025-04-22T14:14:48.683+05:00  WARN 17160 --- [my-app] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-04-22T14:14:48.708+05:00  INFO 17160 --- [my-app] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-04-22T14:14:50.070+05:00  INFO 17160 --- [my-app] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-04-22T14:14:50.185+05:00  INFO 17160 --- [my-app] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-04-22T14:14:50.719+05:00  WARN 17160 --- [my-app] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-04-22T14:14:50.839+05:00  INFO 17160 --- [my-app] [main] o.s.v.b.OptionalValidatorFactoryBean     : Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-04-22T14:14:51.290+05:00  INFO 17160 --- [my-app] [main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:devdb'
+2025-04-22T14:14:51.423+05:00  WARN 17160 --- [my-app] [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2025-04-22T14:14:51.426+05:00  INFO 17160 --- [my-app] [main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-04-22T14:14:51.431+05:00  INFO 17160 --- [my-app] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-04-22T14:14:51.438+05:00  INFO 17160 --- [my-app] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-04-22T14:14:51.471+05:00  INFO 17160 --- [my-app] [main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-04-22T14:14:51.522+05:00 ERROR 17160 --- [my-app] [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8081 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8081 or configure this application to listen on another port.
+
