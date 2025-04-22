@@ -1,19 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
-const ContactDetail = ({ newContact, setNewContact, onSaveContact, onClose }) => {
+const ContactDetail = ({ newContact, setNewContact, onClose, onSaveContact }) => {
   const handleChange = (e) => {
     setNewContact({ ...newContact, [e.target.name]: e.target.value });
   };
 
-  const handleSave = () => {
-    // Ensure the newContact has default values
-    if (!newContact.name || !newContact.email) {
-      alert('Name and Email are required!');
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Check if all required fields are filled
+    const requiredFields = ['name', 'email', 'phone', 'address', 'title', 'status'];
+    const isFormValid = requiredFields.every(field => newContact[field]);
+
+    if (!isFormValid) {
+      alert('Please fill all required fields.');
       return;
     }
 
-    // Save the contact (this function should be passed as a prop)
-    onSaveContact(newContact);
+    // If all fields are valid, call onSaveContact
+    onSaveContact();
   };
 
   return (
@@ -22,54 +27,34 @@ const ContactDetail = ({ newContact, setNewContact, onSaveContact, onClose }) =>
         <button className="modal-close" onClick={onClose}>×</button>
         <h3>{newContact.id ? 'Edit Contact' : 'Add New Contact'}</h3>
 
-        <input
-          type="text"
-          name="name"
-          value={newContact.name}
-          onChange={handleChange}
-          placeholder="Name"
-        />
-        <input
-          type="email"
-          name="email"
-          value={newContact.email}
-          onChange={handleChange}
-          placeholder="Email"
-        />
-        <input
-          type="text"
-          name="phone"
-          value={newContact.phone}
-          onChange={handleChange}
-          placeholder="Phone"
-        />
-        <input
-          type="text"
-          name="address"
-          value={newContact.address}
-          onChange={handleChange}
-          placeholder="Address"
-        />
-        <input
-          type="text"
-          name="title"
-          value={newContact.title}
-          onChange={handleChange}
-          placeholder="Title"
-        />
-        <select
-          name="status"
-          value={newContact.status}
-          onChange={handleChange}
-        >
-          <option value="">Status</option>
-          <option value="Active">Active</option>
-          <option value="Inactive">Inactive</option>
-        </select>
+        <form onSubmit={handleSubmit}>
+          {['name', 'email', 'phone', 'address', 'title'].map((field) => (
+            <input
+              key={field}
+              type="text"
+              name={field}
+              value={newContact[field] || ''}
+              onChange={handleChange}
+              placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+              required // Ensures this field must be filled
+            />
+          ))}
 
-        <button className="btn" onClick={handleSave}>
-          {newContact.id ? 'Save Changes' : 'Add Contact'}
-        </button>
+          <select
+            name="status"
+            value={newContact.status || ''}
+            onChange={handleChange}
+            required // Ensures the user selects a status
+          >
+            <option value="">Status</option>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+
+          <button className="btn" type="submit">
+            {newContact.id ? 'Save Changes' : 'Add Contact'}
+          </button>
+        </form>
       </div>
     </div>
   );
