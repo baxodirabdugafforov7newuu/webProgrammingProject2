@@ -3,61 +3,61 @@ spring:
     name: my-app
 
   profiles:
-    active: dev  # switch to 'prod' when deploying
+    active: dev  # Switch to 'prod' when deploying to production
 
+  # General DataSource configuration
   datasource:
-    url: jdbc:postgresql://localhost:5432/mydatabase
+    driver-class-name: org.postgresql.Driver
     username: myuser
     password: mypassword
-    driver-class-name: org.postgresql.Driver
 
+  # Hibernate configuration
   jpa:
     hibernate:
-      ddl-auto: update  # options: validate | update | create | create-drop
+      ddl-auto: update  # Options: validate | update | create | create-drop
     show-sql: true
     properties:
       hibernate:
         format_sql: true
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
+  # Security settings (for development mode)
   security:
     user:
       name: admin
       password: secret
 
+  # File upload configuration (max size 10MB)
   servlet:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
 
-server:
-  port: 8080
-  error:
-    whitelabel:
-      enabled: false
+  # Logging configuration
+  logging:
+    level:
+      root: info
+      com.myapp: debug
+    file:
+      name: logs/my-app.log
+    pattern:
+      console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
 
-logging:
-  level:
-    root: info
-    com.myapp: debug
-  file:
-    name: logs/my-app.log
-  pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+  # Management endpoints exposure for Spring Actuator
+  management:
+    endpoints:
+      web:
+        exposure:
+          include: "*"
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
 ---
-
-# Development profile using H2
+# Development profile using H2 Database
 spring:
   config:
     activate:
-      on-profile: dev
+      on-profile: dev  # Activates this profile in dev mode
 
+  # H2 Database configuration for development
   datasource:
     url: jdbc:h2:mem:devdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     driver-class-name: org.h2.Driver
@@ -70,14 +70,15 @@ spring:
 
 server:
   port: 8081
----
 
+---
 # Production profile with PostgreSQL
 spring:
   config:
     activate:
-      on-profile: prod
+      on-profile: prod  # Activates this profile in prod mode
 
+  # PostgreSQL database configuration for production
   datasource:
     url: jdbc:postgresql://prod-db-host:5432/prod_database
     username: prod_user
@@ -86,4 +87,3 @@ spring:
 
 server:
   port: 80
-
