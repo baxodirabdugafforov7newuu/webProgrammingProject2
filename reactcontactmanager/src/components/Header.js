@@ -1,16 +1,10 @@
 import React from 'react';
 
-const Header = ({ onAddContact, nbOfContacts }) => {
-  return (
-    <header className="header">
-      <div className="container">
-        <h3>Contact List ({nbOfContacts})</h3>
-        <button onClick={onAddContact} className="btn">
-          <i className="bi bi-plus-square"></i> Add New Contact
-        </button>
-      </div>
-    </header>
-  );
-};
+const Header = ({ onAddContact, nbOfContacts }) => (
+  <header className="header">
+    <h1>My Contacts ({nbOfContacts})</h1>
+    <button className="btn" onClick={onAddContact}>Add Contact</button>
+  </header>
+);
 
 export default Header;
