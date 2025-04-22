@@ -5,7 +5,15 @@ import Header from './components/Header';
 import ContactList from './components/ContactList';
 import ContactDetail from './components/ContactDetail';
 import { toastSuccess, toastError } from './api/ToastService';
-import "./App.css"
+import "./App.css";
+import axios from "axios";
+import {
+  getContacts,
+  addContact,
+  updateContact,
+  deleteContact
+} from './api/ContactService';
+
 
 const App = () => {
   const [contacts, setContacts] = useState([]);
@@ -24,17 +32,16 @@ const App = () => {
     fetchContacts();
   }, []);
 
-  const fetchContacts = () => {
-    const simulatedData = [
-      { id: 1, name: 'John Doe', email: 'john@example.com', phone: '123-456-7890', address: '123 Main St', title: 'Developer', status: 'Active' },
-      { id: 2, name: 'Jane Doe', email: 'jane@example.com', phone: '987-654-3210', address: '456 Elm St', title: 'Designer', status: 'Inactive' }
-    ];
-    setContacts(simulatedData);
+  const fetchContacts = async () => {
+    const data = await getContacts();
+    setContacts(data);
   };
 
-  const handleSaveContact = () => {
 
+  const handleSaveContact = async () => {
     const requiredFields = ['name', 'email', 'phone', 'address', 'title', 'status'];
+
+    // Validate required fields
     const isEmpty = requiredFields.some(
       key => !newContact[key] || newContact[key].toString().trim() === ''
     );
@@ -44,43 +51,43 @@ const App = () => {
       return;
     }
 
-    const isEmptyField = Object.entries(newContact).some(
-      ([key, value]) => {
-        if (key === 'id') return false; // skip id check
-        return !value || String(value).trim() === '';
+    try {
+      let response;
+
+      if (newContact.id) {
+        // Update contact
+        response = await axios.put(`http://localhost:8081/contacts/${newContact.id}`, newContact);
+        toastSuccess("Contact updated!");
+      } else {
+        // Add new contact
+        response = await axios.post(`http://localhost:8081/contacts`, newContact);
+        toastSuccess("Contact added!");
       }
-    );
-    
-    if (isEmptyField) {
-      toastError("Please fill all fields!");
-      return;
-    }
-    
 
-    if (newContact.id) {
-      // Edit existing contact
-      setContacts(prev =>
-        prev.map(c => (c.id === newContact.id ? newContact : c))
-      );
-      toastSuccess("Contact updated!");
-    } else {
-      // Add new contact
-      const id = contacts.length ? Math.max(...contacts.map(c => c.id)) + 1 : 1;
-      setContacts([...contacts, { ...newContact, id }]);
-      toastSuccess("Contact added!");
-    }
+      // Refresh the contact list after save
+      await fetchContacts();
 
-    setIsModalOpen(false);
-    setNewContact({
-      id: null,
-      name: '',
-      email: '',
-      phone: '',
-      address: '',
-      title: '',
-      status: ''
-    });
+      // Close modal and reset form
+      setIsModalOpen(false);
+      setNewContact({
+        id: null,
+        name: '',
+        email: '',
+        phone: '',
+        address: '',
+        title: '',
+        status: ''
+      });
+
+      console.log('Saved contact:', response.data);
+
+    } catch (error) {
+      console.error("Error saving contact:", error);
+      toastError("Error saving contact. Please try again.");
+    }
   };
+
+
 
   const handleDeleteContact = (id) => {
     setContacts(prev => prev.filter(contact => contact.id !== id));
@@ -93,6 +100,7 @@ const App = () => {
   };
 
   const handleOpenAddModal = () => {
+    // Reset form for new contact
     setNewContact({
       id: null,
       name: '',

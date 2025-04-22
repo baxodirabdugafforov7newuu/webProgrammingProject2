@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const ContactDetail = ({ newContact, setNewContact, onSaveContact, onClose }) => {
   const handleChange = (e) => {
     setNewContact({ ...newContact, [e.target.name]: e.target.value });
+  };
+
+  const handleSave = () => {
+    // Ensure the newContact has default values
+    if (!newContact.name || !newContact.email) {
+      alert('Name and Email are required!');
+      return;
+    }
+
+    // Save the contact (this function should be passed as a prop)
+    onSaveContact(newContact);
   };
 
   return (
@@ -56,7 +67,7 @@ const ContactDetail = ({ newContact, setNewContact, onSaveContact, onClose }) =>
           <option value="Inactive">Inactive</option>
         </select>
 
-        <button className="btn" onClick={onSaveContact}>
+        <button className="btn" onClick={handleSave}>
           {newContact.id ? 'Save Changes' : 'Add Contact'}
         </button>
       </div>
