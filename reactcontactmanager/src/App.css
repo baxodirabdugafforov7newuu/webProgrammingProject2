@@ -1,274 +1,282 @@
-/* Reset and Body Styles */
-* {
+/* Global Styles */
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
 body {
-  font-family: 'Arial', sans-serif;
-  background-color: #eaf2f8; /* Light blue background */
-  color: #2c3e50; /* Dark blue text */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f2f4f7;
+  color: #333;
+  line-height: 1.6;
+  min-height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  height: 100vh;
-  padding-top: 50px; /* Adjusted for smaller header */
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px 0;
+  max-width: 100%;
 }
 
-/* Container for the whole app */
-.container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
+/* Main container for the app */
+.app-container {
+  width: 80%; /* Set the width to 80% of the screen */
+  margin: 40px auto;
   padding: 20px;
-  background-color: white;
+  background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Header/NavBar */
-header {
-  background-color: #3498db; /* Blue background */
-  color: white;
-  padding: 10px 20px;
-  text-align: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
+/* Header styling */
+.header {
+  width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* Space between header content */
   align-items: center;
-  border-radius: 0 0 10px 10px;
+  margin-bottom: 30px;
+  gap: 20px;
+}
+
+.header h1 {
+  font-size: 2rem;
+  color: #007bff;
+}
+
+.header button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease;
+}
+
+.header button:hover {
+  background-color: #0056b3;
+}
+
+/* Contact List Container */
+.contact-list-container {
+  width: 100%;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-header h1 {
-  font-size: 1.4rem; /* Smaller font size for header */
+.contact-list-container p {
+  font-size: 1.2rem;
+  color: #888;
+  text-align: center;
+  margin-top: 50px;
 }
 
-header button {
-  background-color: #1abc9c; /* Teal button */
-  color: white;
-  padding: 8px 15px;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-header button:hover {
-  background-color: #16a085; /* Darker teal on hover */
-}
-
-/* Contact List in Grid */
-.contact__list {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  margin-top: 140px; /* Adjusted for smaller header */
+/* Contact Cards Layout (Grid by width) */
+.contact-list {
+  list-style-type: none;
   padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); /* Set grid by width */
+  grid-auto-rows: auto; /* Let rows adjust based on content */
 }
 
-.contact__card {
+.contact-card {
   background-color: #fff;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  width: 100%; /* Ensure full width inside grid columns */
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
+  gap: 20px;
 }
 
-.contact__card:hover {
-  background-color: #ecf0f1; /* Light blue hover effect */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+.contact-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
 }
 
-.contact__card h4 {
-  margin-bottom: 10px;
-  font-size: 1.5rem;
-  color: #2c3e50; /* Dark blue for headings */
-}
-
-.contact__card p {
-  margin: 5px 0;
-  font-size: 1rem;
-}
-
-.contact__card .btn-group {
-  margin-top: 15px;
+.contact-card-header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
 }
 
-.contact__card .btn {
-  padding: 8px 15px;
-  font-size: 1rem;
+.contact-card-header h3 {
+  font-size: 1.6rem;
+  color: #333;
+}
+
+.contact-card-body {
+  margin-bottom: 20px;
+}
+
+.contact-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.contact-card-footer .edit-btn,
+.contact-card-footer .delete-btn {
+  background-color: #28a745;
+  color: white;
+  padding: 8px 18px;
+  border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  width: 48%;
 }
 
-.contact__card .btn-edit {
-  background-color: #2980b9; /* Blue for edit button */
-  color: white;
+.contact-card-footer .edit-btn:hover {
+  background-color: #218838;
+}
+
+.contact-card-footer .delete-btn {
+  background-color: #dc3545;
+}
+
+.contact-card-footer .delete-btn:hover {
+  background-color: #c82333;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 40px 0;
+  font-size: 1.2rem;
+  color: #777;
+}
+
+.empty-state p {
+  margin-bottom: 20px;
+}
+
+.add-contact-button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 12px 25px;
   border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.contact__card .btn-edit:hover {
-  background-color: #3498db; /* Lighter blue on hover */
+.add-contact-button:hover {
+  background-color: #0056b3;
 }
 
-.contact__card .btn-delete {
-  background-color: #e74c3c; /* Red for delete button */
-  color: white;
-  border: none;
-}
-
-.contact__card .btn-delete:hover {
-  background-color: #c0392b; /* Darker red on hover */
-}
-
-/* Modal Styling */
+/* Contact Detail Modal */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
 }
 
 .modal-content {
-  background-color: white;
+  background-color: #fff;
   padding: 30px;
-  border-radius: 8px;
+  border-radius: 10px;
   width: 100%;
   max-width: 500px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  z-index: 990;
 }
 
-.modal-content h2 {
-  font-size: 1.4rem;
+.modal-content h3 {
+  text-align: center;
   margin-bottom: 20px;
-  color: #2c3e50; /* Dark blue title */
 }
 
 .modal-content input,
-.modal-content select,
-.modal-content textarea {
+.modal-content select {
   width: 100%;
-  padding: 12px;
+  padding: 10px;
   margin-bottom: 15px;
-  border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 1rem;
-  background-color: #f9f9f9;
+  border: 1px solid #ddd;
 }
 
 .modal-content button {
-  background-color: #3498db; /* Blue save button */
-  color: white;
+  background-color: #007bff;
+  color: #fff;
+  padding: 12px 25px;
   border: none;
-  padding: 12px 20px;
-  font-size: 1rem;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
-  margin: 10px;
+  font-size: 1rem;
+  width: 100%;
 }
 
 .modal-content button:hover {
-  background-color: #2980b9; /* Lighter blue on hover */
+  background-color: #0056b3;
 }
 
-.modal-content button.cancel {
-  background-color: #e74c3c; /* Red cancel button */
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #aaa;
+  cursor: pointer;
 }
 
-.modal-content button.cancel:hover {
-  background-color: #c0392b; /* Darker red on hover */
+.modal-close:hover {
+  color: #333;
 }
 
-/* Toast Notifications */
-.Toastify__toast-container {
-  z-index: 1000;
-}
-
-.Toastify__toast {
-  font-size: 1rem;
-}
-
-.Toastify__toast--success {
-  background-color: #27ae60; /* Green for success */
-  color: yellow;
-}
-
-.Toastify__toast--error {
-  background-color: #e74c3c; /* Red for error */
-  color: white;
-}
-
-/* Responsive Design */
+/* Responsive Design for smaller screens */
 @media (max-width: 1024px) {
-  .contact__list {
-    grid-template-columns: repeat(3, 1fr); /* 3 items per row */
+  .contact-list {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .contact-card-footer .edit-btn,
+  .contact-card-footer .delete-btn {
+    width: 48%;
   }
 }
 
 @media (max-width: 768px) {
-  .contact__list {
-    grid-template-columns: repeat(2, 1fr); /* 2 items per row */
+  .contact-list {
+    grid-template-columns: 1fr;
   }
 
-  header {
-    flex-direction: column;
-    align-items: center;
-    font-size: 1.4rem;
-  }
-
-  .contact__card {
+  .contact-card {
     padding: 15px;
   }
 
-  .contact__card h4 {
-    font-size: 1.3rem;
-  }
-
-  .contact__card p {
-    font-size: 0.95rem;
-  }
-
-  .contact__card .btn-group {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .contact__card .btn {
-    width: 100%;
-  }
-}
-
-@media (max-width: 480px) {
   .modal-content {
-    width: 90%;
+    padding: 20px;
   }
 
-  .contact__card p {
-    font-size: 0.9rem;
+  .modal-close {
+    font-size: 1.2rem;
   }
 
-  .contact__card .btn {
-    font-size: 0.9rem;
-    padding: 6px 12px;
+  .add-contact-button {
+    width: 100%;
   }
 }
