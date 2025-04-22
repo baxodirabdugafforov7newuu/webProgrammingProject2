@@ -1,89 +1,15 @@
 spring:
   application:
     name: my-app
-
   profiles:
-    active: dev  # Switch to 'prod' when deploying to production
+    active: dev # Change to 'prod' for production mode
 
-  # General DataSource configuration
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    username: myuser
-    password: mypassword
+  # Server Port
+  server:
+    port: 8080
 
-  # Hibernate configuration
-  jpa:
-    hibernate:
-      ddl-auto: update  # Options: validate | update | create | create-drop
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-
-  # Security settings (for development mode)
-  security:
-    user:
-      name: admin
-      password: secret
-
-  # File upload configuration (max size 10MB)
+  # Multipart file settings
   servlet:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
-
-  # Logging configuration
-  logging:
-    level:
-      root: info
-      com.myapp: debug
-    file:
-      name: logs/my-app.log
-    pattern:
-      console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
-
-  # Management endpoints exposure for Spring Actuator
-  management:
-    endpoints:
-      web:
-        exposure:
-          include: "*"
-
----
-# Development profile using H2 Database
-spring:
-  config:
-    activate:
-      on-profile: dev  # Activates this profile in dev mode
-
-  # H2 Database configuration for development
-  datasource:
-    url: jdbc:h2:mem:devdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    driver-class-name: org.h2.Driver
-    username: user
-    password: pass
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
-
-server:
-  port: 8081
-
----
-# Production profile with PostgreSQL
-spring:
-  config:
-    activate:
-      on-profile: prod  # Activates this profile in prod mode
-
-  # PostgreSQL database configuration for production
-  datasource:
-    url: jdbc:postgresql://prod-db-host:5432/prod_database
-    username: prod_user
-    password: prod_password
-    driver-class-name: org.postgresql.Driver
-
-server:
-  port: 80
